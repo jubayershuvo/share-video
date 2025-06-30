@@ -1,13 +1,12 @@
 "use client";
 
 import VideoPlayer from "@/component/VideoPlayer";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function VideoPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-
 
   if (!id) {
     return (
