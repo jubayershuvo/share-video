@@ -216,11 +216,19 @@ export async function POST(req: NextRequest) {
         const tempThumbnailPath = thumbnailFile?.filepath;
 
         try {
-          await fs.promises.rm(tempThumbnailPath, {
-            recursive: true,
-            force: true,
-          });
-          await fs.promises.rm(tempVideoPath, { recursive: true, force: true });
+          if (tempThumbnailPath) {
+            await fs.promises.rm(tempThumbnailPath, {
+              recursive: true,
+              force: true,
+            });
+          }
+
+          if (tempVideoPath) {
+            await fs.promises.rm(tempVideoPath, {
+              recursive: true,
+              force: true,
+            });
+          }
         } catch (err) {
           console.error("Failed to delete temp file", err);
         }
