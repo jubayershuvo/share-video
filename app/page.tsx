@@ -7,8 +7,11 @@ type Video = {
   title: string;
   description: string;
   url: string;
-  thumbnailUrl: string;
-  duration: number;
+  thumbnailPath: string;
+  duration: {
+    minutes: number;
+    seconds: number;
+  };
   views: number;
 };
 
