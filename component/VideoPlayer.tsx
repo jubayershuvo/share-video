@@ -33,8 +33,14 @@ export default function VideoPlayer({
   const [optionsOpen, setOptionsOpen] = useState(false);
   const poster = `/uploads/${id}/thumbnail.jpg`; // Placeholder poster image
   const src = `/uploads/${id}/master.m3u8`; // Replace with actual video source URL
-  const time = parseFloat(localStorage.getItem(`time-${id}`) || "0");
+  const [time, setTime] = useState(0);
 
+  useEffect(() => {
+    const savedTime = localStorage.getItem(`time-${id}`);
+    if (savedTime) {
+      setTime(parseFloat(savedTime));
+    }
+  }, [id]);
   // Quality levels from HLS
   const [levels, setLevels] = useState<any[]>([]);
   const [currentLevel, setCurrentLevel] = useState(-1);
