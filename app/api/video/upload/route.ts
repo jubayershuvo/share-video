@@ -30,7 +30,6 @@ function parseForm(
       keepExtensions: true,
     });
 
-
     // Ensure the temp upload directory exists
     if (!existsSync(TEMP_UPLOAD_DIR)) {
       mkdirSync(TEMP_UPLOAD_DIR);
@@ -78,9 +77,6 @@ export async function POST(req: NextRequest) {
     if (!videoFile) {
       return NextResponse.json({ error: "No video provided" }, { status: 400 });
     }
-
-    const tempVideoPath = videoFile?.filepath;
-    const tempThumbnailPath = thumbnailFile?.filepath;
 
     const title = Array.isArray(fields.title)
       ? fields.title[0]
@@ -216,13 +212,18 @@ export async function POST(req: NextRequest) {
           },
         });
 
+        const tempVideoPath = videoFile?.filepath;
+        const tempThumbnailPath = thumbnailFile?.filepath;
+
         try {
-          await fs.promises.rm(tempThumbnailPath, { recursive: true, force: true });
+          await fs.promises.rm(tempThumbnailPath, {
+            recursive: true,
+            force: true,
+          });
           await fs.promises.rm(tempVideoPath, { recursive: true, force: true });
         } catch (err) {
           console.error("Failed to delete temp file", err);
         }
-        
       } catch (error) {
         console.error("Processing error:", error);
         await Video.findByIdAndDelete(uploadId);
@@ -231,7 +232,6 @@ export async function POST(req: NextRequest) {
         } catch (err) {
           console.error("Failed to delete temp file", err);
         }
-        
       }
     })();
 
