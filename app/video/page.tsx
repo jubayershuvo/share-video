@@ -7,7 +7,6 @@ import { useSearchParams } from "next/navigation";
 export default function VideoPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  // const time = useMemo(() => localStorage.getItem(`time-${id}`) || "0", [id]); // Get time from localStorage or default to 0
 
 
   if (!id) {
@@ -24,8 +23,6 @@ export default function VideoPage() {
         id={id}
         autoPlay={true}
         width={800}
-  
-        // time={time || 0} // Parse time if available
       />
     </main>
   );
