@@ -79,8 +79,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No video provided" }, { status: 400 });
     }
 
-    const tempVideoPath = videoFile.filepath;
-    const tempThumbnailPath = thumbnailFile.filepath;
+    const tempVideoPath = videoFile?.filepath;
+    const tempThumbnailPath = thumbnailFile?.filepath;
 
     const title = Array.isArray(fields.title)
       ? fields.title[0]
